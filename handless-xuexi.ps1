@@ -16,51 +16,52 @@ function RandomSwipe( [int]$start, [int]$end, [int]$range) {
     $end = [int]($end + $random_delta);
     $startstr = $start.ToString();
     $endstr = $end.ToString();
-    & adb shell input swipe 500 $startstr 500 $endstr
+    & .\adb.exe shell input swipe 500 $startstr 500 $endstr
 }
 
 function RandomTap( [int]$x, [int]$y) {
     $random_delta = Get-Random -Minimum -5 -Maximum 5
     $x = [int]($x + $random_delta);
     $y = [int]($y + $random_delta);
-    & adb shell input tap $x $y
+    & .\adb.exe shell input tap $x $y
 }
 
 # 启动学习强国
-& adb shell am start -n cn.xuexi.android/com.alibaba.android.rimet.biz.SplashActivity
-Start-Sleep -s 10
+& .\adb.exe shell am start -n cn.xuexi.android/com.alibaba.android.rimet.biz.SplashActivity
+Start-Sleep -s 30
 
 # 密码登陆
-& adb shell input tap 150 525
+& .\adb.exe shell input tap 150 525
 RandomSleep ;
-& .\password.ps1
+Write-Output "password"
+& .\.password.ps1
 RandomSleep ;
-& adb shell input tap 550 610
+& .\adb.exe shell input tap 550 610
 Start-Sleep -s 5
-& adb shell input tap 1000 1855
+& .\adb.exe shell input tap 1000 1855
 Start-Sleep -s 5
 
 # 重新登陆
-& adb shell am force-stop cn.xuexi.android
+& .\adb.exe shell am force-stop cn.xuexi.android
 Start-Sleep -s 5
-& adb shell am start -n cn.xuexi.android/com.alibaba.android.rimet.biz.SplashActivity
-Start-Sleep -s 10
+& .\adb.exe shell am start -n cn.xuexi.android/com.alibaba.android.rimet.biz.SplashActivity
+Start-Sleep -s 30
 
 # 学习主菜单
-& adb shell input tap 540 1900
+& .\adb.exe shell input tap 540 1900
 Write-Output "main menu"
 RandomSleep ;
 # 进入新思想
-#& adb shell input tap 225 140
+#& .\adb.exe shell input tap 225 140
 #Write-Output "new think"
 # 综合
-& adb shell input tap 325 140
+& .\adb.exe shell input tap 325 140
 Write-Output "news"
 RandomSleep ;
 RandomSleep ;
-& adb shell input tap 325 140
+& .\adb.exe shell input tap 325 140
 # 进入重要活动
-#& adb shell input tap 50 215
+#& .\adb.exe shell input tap 50 215
 #Write-Output "important talks"
 Start-Sleep -s $long_sleep_time
 # 滑动-增加随机性
@@ -73,12 +74,12 @@ RandomSleep ;
 for ($i = 0; $i -lt 6; $i++) {
     $y = 392 + 410 * ($i % 3);
     $ystr = $y.ToString();
-    & adb shell input tap 540 $ystr
+    & .\adb.exe shell input tap 540 $ystr
     RandomSleep ;
     # 滑动60次
     for ($f = 0; $f -lt 60; $f++) {
         if ($f % 2 -and $f -lt 10) {
-            & adb shell input tap 500 850
+            & .\adb.exe shell input tap 500 850
         }
         Start-Sleep -s 1;
         RandomSwipe 1000 850 5;
@@ -86,10 +87,10 @@ for ($i = 0; $i -lt 6; $i++) {
         Write-Output "read line $f"
     }
     # 收藏
-    adb shell input tap 960 1890
+    & .\adb.exe shell input tap 960 1890
     RandomSleep ;
     # 返回
-    & adb shell input keyevent KEYCODE_BACK
+    & .\adb.exe shell input keyevent KEYCODE_BACK
     RandomSleep ;
     # 大滑一下,增加随机性
     if( $i -eq 1 -or $i -eq 3 -or $i -eq 5)
@@ -101,12 +102,12 @@ for ($i = 0; $i -lt 6; $i++) {
 }
 
 # 自动播放新闻联播-每天6个
-& adb shell input tap 753 1900
+& .\adb.exe shell input tap 753 1900
 RandomSleep ;
-& adb shell input tap 310 140
+& .\adb.exe shell input tap 310 140
 RandomSleep ;
 RandomSleep ;
-& adb shell input tap 310 140
+& .\adb.exe shell input tap 310 140
 Start-Sleep -s $long_sleep_time
 RandomSleep ;
 Write-Output "video channel."
@@ -116,7 +117,7 @@ for ($i = 0; $i -lt 6; $i++) {
     # 计算点击位置
     $y = 820 + 160 * $i;
     $ystr = $y.ToString();
-    & adb shell input tap 540 $ystr
+    & .\adb.exe shell input tap 540 $ystr
     
     if($i -eq 0)
     {
@@ -128,11 +129,11 @@ for ($i = 0; $i -lt 6; $i++) {
         Start-Sleep -s $video_sleep_time
     }
     
-    & adb shell input keyevent KEYCODE_BACK
+    & .\adb.exe shell input keyevent KEYCODE_BACK
     RandomSleep ;
 
     # 每个视频都划屏
-    #& adb shell input swipe 500 1500 500 600
+    #& .\adb.exe shell input swipe 500 1500 500 600
     #Start-Sleep -s $sleep_time;
 
     Write-Output "video $i read ok."
@@ -140,7 +141,7 @@ for ($i = 0; $i -lt 6; $i++) {
 
 # 退出学习强国
 Write-Output "learning complete, exiting..."
-& adb shell am force-stop cn.xuexi.android
+& .\adb.exe shell am force-stop cn.xuexi.android
 
 return;
 
