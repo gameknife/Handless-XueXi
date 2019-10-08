@@ -56,22 +56,27 @@ Start-Sleep -s 10
 Write-Output "main menu"
 RandomSleep ;
 # 进入新思想
-& adb shell input tap 225 140
-Write-Output "new think"
+#& adb shell input tap 225 140
+#Write-Output "new think"
+# 综合
+& adb shell input tap 325 140
+Write-Output "news"
 RandomSleep ;
+RandomSleep ;
+& adb shell input tap 325 140
 # 进入重要活动
-& adb shell input tap 50 215
-Write-Output "important talks"
+#& adb shell input tap 50 215
+#Write-Output "important talks"
 Start-Sleep -s $long_sleep_time
 # 滑动-增加随机性
-RandomSwipe 1750 100 300;
+RandomSwipe 1750 100 200;
 RandomSleep ;
-RandomSwipe 1750 100 300;
+RandomSwipe 1750 100 200;
 RandomSleep ;
 
 # 自动打开文章-每天6篇
 for ($i = 0; $i -lt 6; $i++) {
-    $y = 392 + 400 * ($i % 3);
+    $y = 392 + 410 * ($i % 3);
     $ystr = $y.ToString();
     & adb shell input tap 540 $ystr
     RandomSleep ;
@@ -102,6 +107,9 @@ for ($i = 0; $i -lt 6; $i++) {
 
 # 自动播放新闻联播-每天6个
 & adb shell input tap 753 1900
+RandomSleep ;
+& adb shell input tap 310 140
+RandomSleep ;
 RandomSleep ;
 & adb shell input tap 310 140
 Start-Sleep -s $long_sleep_time
