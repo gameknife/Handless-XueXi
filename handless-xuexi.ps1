@@ -33,12 +33,7 @@ Start-Sleep -s 10
 # 密码登陆
 & adb shell input tap 150 525
 RandomSleep ;
-& adb shell input keyevent KEYCODE_1
-& adb shell input keyevent KEYCODE_2
-& adb shell input keyevent KEYCODE_3
-& adb shell input keyevent KEYCODE_4
-& adb shell input keyevent KEYCODE_5
-& adb shell input keyevent KEYCODE_6
+& .\password.ps1
 RandomSleep ;
 & adb shell input tap 550 610
 Start-Sleep -s 5
