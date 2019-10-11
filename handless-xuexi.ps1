@@ -93,11 +93,12 @@ for ($i = 0; $i -lt 6; $i++) {
     & .\adb.exe shell input keyevent KEYCODE_BACK
     RandomSleep ;
     # 大滑一下,增加随机性
-    if( $i -eq 1 -or $i -eq 3 -or $i -eq 5)
-    {
+    # skip big articla
+    #if( $i -eq 1 -or $i -eq 3 -or $i -eq 5)
+    #{
         RandomSwipe 1500 800 50;
         RandomSleep ;
-    }
+    #}
     Write-Output "article $i read ok."
 }
 
